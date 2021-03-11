@@ -1,2 +1,2 @@
-from .dump import LitCovidDumper
-from .upload import LitCovidUploader
+from .dump import LitCovidTopicsDumper
+from .upload import LitCovidTopicsUploader(

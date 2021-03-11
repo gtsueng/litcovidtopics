@@ -17,7 +17,7 @@ except ImportError:
     from .parser import load_annotations as parser_func
 
 
-class LitCovidTopicUploader(biothings.hub.dataload.uploader.BaseSourceUploader):
+class LitCovidTopicsUploader(biothings.hub.dataload.uploader.BaseSourceUploader):
     
     main_source = "litcovid"
     name = "litcovidtopics"
@@ -29,7 +29,7 @@ class LitCovidTopicUploader(biothings.hub.dataload.uploader.BaseSourceUploader):
             },
             "code":{
                 "branch": "master",
-                "repo": "https://github.com/marcodarko/litcovidtopics.git"
+                "repo": "https://github.com/gtsueng/litcovidtopics.git"
             },
             "url": "https://www.ncbi.nlm.nih.gov/research/coronavirus/ ",
             "license": "https://www.ncbi.nlm.nih.gov/home/about/policies/"
