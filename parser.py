@@ -65,7 +65,7 @@ def merge_results(pmid_dict):
     return(allresults)
 
 
-def clean_results(allresult):
+def clean_results(allresults):
     counts = allresults.groupby('_id').size().reset_index(name='counts')
     duplicates = counts.loc[counts['counts']>1]
     dupids = duplicates['_id'].unique().tolist()
