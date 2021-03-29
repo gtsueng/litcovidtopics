@@ -68,17 +68,18 @@ def merge_results(pmid_dict):
 def clean_results(allresults):
     counts = allresults.groupby('_id').size().reset_index(name='counts')
     duplicates = counts.loc[counts['counts']>1]
+    singles = counts.loc[counts['counts']==1]
     dupids = duplicates['_id'].unique().tolist()
     tmplist = []
     for eachid in dupids:
         catlist = allresults['topicCategory'].loc[allresults['_id']==eachid].tolist()
         tmplist.append({'_id':eachid,'topicCategory':catlist})
     tmpdf = pd.DataFrame(tmplist)  
-    singles = allresults.drop_duplicates(subset='_id').copy()
-    ids = singles['_id'].tolist()
-    catlist = singles['topicCategory'].tolist()
+    tmpsingledf = allresults[['_id','topicCategory']].loc[allresults['_id'].isin(singles['_id'].tolist())]
+    idlist = tmpsingledf['_id'].tolist()
+    catlist = tmpsingledf['topicCategory'].tolist()
     cattycat = [[x] for x in catlist]
-    list_of_tuples = list(zip(ids,cattycat))
+    list_of_tuples = list(zip(idlist,cattycat))
     singledf = pd.DataFrame(list_of_tuples, columns = ['_id', 'topicCategory']) 
     cleanresults = pd.concat((tmpdf,singledf),ignore_index=True)
     return(cleanresults)  
