@@ -18,6 +18,7 @@ expire_after = datetime.timedelta(days=7)
 requests_cache.install_cache('litcovidtopics_cache',expire_after=expire_after)
 logger.debug("requests_cache: %s", requests_cache.get_cache().responses.filename)
 
+RESULTPATH = 'results/'
         
 def get_pmids(res):
     data=[]
@@ -90,5 +91,4 @@ def load_annotations():
     clean_dict = transform_dict(pmid_dict)
     allresults = merge_results(clean_dict)
     cleantopics = clean_results(allresults)
-    for doc in json.loads(cleantopics.to_json(orient="records")):
-        yield(doc)
+    cleantopics.to_json(os.path.join(RESULTPATH,'litcovidtopics.json'),orient="records", indent=4)
